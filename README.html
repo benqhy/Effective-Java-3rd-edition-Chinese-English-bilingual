@@ -1,0 +1,746 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-require-zoom-fix { height: auto; margin-top: 16px; margin-bottom: 16px; }
+.md-require-zoom-fix foreignobject { font-size: var(--mermaid-font-zoom); }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+ :root {--mermaid-font-zoom:1.23958em ;} 
+</style><title>README</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='effective-java-3rd-edition-chinese-english-bilingual'><span>Effective-Java-3rd-edition-Chinese-English-bilingual</span></h1><p><span>Effective Java（第 3 版）各章节的中英文学习参考，希望对 Java 技术的提高有所帮助，欢迎通过 issue 或 pr 提出建议和修改意见。</span></p><h2 id='目录contents）'><span>目录（Contents）</span></h2><ul><li><p><strong><span>Chapter 2. Creating and Destroying Objects（创建和销毁对象）</span></strong></p><ul><li><a href='Chapter-2/Chapter-2-Introduction.html'><span>Chapter 2 Introduction（章节介绍）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-1-Consider-static-factory-methods-instead-of-constructors.md'><span>Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-2-Consider-a-builder-when-faced-with-many-constructor-parameters.md'><span>Item 2: Consider a builder when faced with many constructor parameters（在面对多个构造函数参数时，请考虑构建器）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-3-Enforce-the-singleton-property-with-a-private-constructor-or-an-enum-type.md'><span>Item 3: Enforce the singleton property with a private constructor or an enum type（使用私有构造函数或枚举类型实施单例属性）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-4-Enforce-noninstantiability-with-a-private-constructor.md'><span>Item 4: Enforce noninstantiability with a private constructor（用私有构造函数实施不可实例化）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-5-Prefer-dependency-injection-to-hardwiring-resources.md'><span>Item 5: Prefer dependency injection to hardwiring resources（依赖注入优于硬连接资源）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-6-Avoid-creating-unnecessary-objects.md'><span>Item 6: Avoid creating unnecessary objects（避免创建不必要的对象）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-7-Eliminate-obsolete-object-references.md'><span>Item 7: Eliminate obsolete object references（排除过时的对象引用）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-8-Avoid-finalizers-and-cleaners.md'><span>Item 8: Avoid finalizers and cleaners（避免使用终结器和清除器）</span></a></li><li><a href='Chapter-2/Chapter-2-Item-9-Prefer-try-with-resources-to-try-finally.md'><span>Item 9: Prefer try with resources to try finally（使用 try-with-resources 优于 try-finally）</span></a></li></ul></li><li><p><strong><span>Chapter 3. Methods Common to All Objects（对象的通用方法）</span></strong></p><ul><li><a href='Chapter-3/Chapter-3-Introduction.md'><span>Chapter 3 Introduction（章节介绍）</span></a></li><li><a href='Chapter-3/Chapter-3-Item-10-Obey-the-general-contract-when-overriding-equals.md'><span>Item 10: Obey the general contract when overriding equals（覆盖 equals 方法时应遵守的约定）</span></a></li><li><a href='Chapter-3/Chapter-3-Item-11-Always-override-hashCode-when-you-override-equals.md'><span>Item 11: Always override hashCode when you override equals（当覆盖 equals 方法时，总要覆盖 hashCode 方法）</span></a></li><li><a href='Chapter-3/Chapter-3-Item-12-Always-override-toString.md'><span>Item 12: Always override toString（始终覆盖 toString 方法）</span></a></li><li><a href='Chapter-3/Chapter-3-Item-13-Override-clone-judiciously.md'><span>Item 13: Override clone judiciously（明智地覆盖 clone 方法）</span></a></li><li><a href='Chapter-3/Chapter-3-Item-14-Consider-implementing-Comparable.md'><span>Item 14: Consider implementing Comparable（考虑实现 Comparable 接口）</span></a></li></ul></li><li><p><strong><span>Chapter 4. Classes and Interfaces（类和接口）</span></strong></p><ul><li><a href='Chapter-4/Chapter-4-Introduction.md'><span>Chapter 4 Introduction（章节介绍）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-15-Minimize-the-accessibility-of-classes-and-members.md'><span>Item 15: Minimize the accessibility of classes and members（尽量减少类和成员的可访问性）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-16-In-public-classes-use-accessor-methods-not-public-fields.md'><span>Item 16: In public classes use accessor methods not public fields（在公共类中，使用访问器方法，而不是公共字段）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-17-Minimize-mutability.md'><span>Item 17: Minimize mutability（减少可变性）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-18-Favor-composition-over-inheritance.md'><span>Item 18: Favor composition over inheritance（优先选择复合而不是继承）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-19-Design-and-document-for-inheritance-or-else-prohibit-it.md'><span>Item 19: Design and document for inheritance or else prohibit it（继承要设计良好并且具有文档，否则禁止使用）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-20-Prefer-interfaces-to-abstract-classes.md'><span>Item 20: Prefer interfaces to abstract classes（接口优于抽象类）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-21-Design-interfaces-for-posterity.md'><span>Item 21: Design interfaces for posterity（为后代设计接口）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-22-Use-interfaces-only-to-define-types.md'><span>Item 22: Use interfaces only to define types（接口只用于定义类型）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-23-Prefer-class-hierarchies-to-tagged-classes.md'><span>Item 23: Prefer class hierarchies to tagged classes（类层次结构优于带标签的类）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-24-Favor-static-member-classes-over-nonstatic.md'><span>Item 24: Favor static member classes over nonstatic（静态成员类优于非静态成员类）</span></a></li><li><a href='Chapter-4/Chapter-4-Item-25-Limit-source-files-to-a-single-top-level-class.md'><span>Item 25: Limit source files to a single top level class（源文件仅限有单个顶层类）</span></a></li></ul></li><li><p><strong><span>Chapter 5. Generics（泛型）</span></strong></p><ul><li><a href='Chapter-5/Chapter-5-Introduction.md'><span>Chapter 5 Introduction（章节介绍）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-26-Do-not-use-raw-types.md'><span>Item 26: Do not use raw types（不要使用原始类型）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-27-Eliminate-unchecked-warnings.md'><span>Item 27: Eliminate unchecked warnings（消除 unchecked 警告）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-28-Prefer-lists-to-arrays.md'><span>Item 28: Prefer lists to arrays（list 优于数组）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-29-Favor-generic-types.md'><span>Item 29: Favor generic types（优先使用泛型）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-30-Favor-generic-methods.md'><span>Item 30: Favor generic methods（优先使用泛型方法）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-31-Use-bounded-wildcards-to-increase-API-flexibility.md'><span>Item 31: Use bounded wildcards to increase API flexibility（使用有界通配符增加 API 的灵活性）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-32-Combine-generics-and-varargs-judiciously.md'><span>Item 32: Combine generics and varargs judiciously（明智地合用泛型和可变参数）</span></a></li><li><a href='Chapter-5/Chapter-5-Item-33-Consider-typesafe-heterogeneous-containers.md'><span>Item 33: Consider typesafe heterogeneous containers（考虑类型安全的异构容器）</span></a></li></ul></li><li><p><strong><span>Chapter 6. Enums and Annotations（枚举和注解）</span></strong></p><ul><li><a href='Chapter-6/Chapter-6-Introduction.md'><span>Chapter 6 Introduction（章节介绍）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-34-Use-enums-instead-of-int-constants.md'><span>Item 34: Use enums instead of int constants（用枚举类型代替 int 常量）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-35-Use-instance-fields-instead-of-ordinals.md'><span>Item 35: Use instance fields instead of ordinals（使用实例字段替代序数）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-36-Use-EnumSet-instead-of-bit-fields.md'><span>Item 36: Use EnumSet instead of bit fields（用 EnumSet 替代位字段）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-36-Use-EnumSet-instead-of-bit-fields.md'><span>Item 37: Use EnumMap instead of ordinal indexing（使用 EnumMap 替换序数索引）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-38-Emulate-extensible-enums-with-interfaces.md'><span>Item 38: Emulate extensible enums with interfaces（使用接口模拟可扩展枚举）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-39-Prefer-annotations-to-naming-patterns.md'><span>Item 39: Prefer annotations to naming patterns（注解优于命名模式）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-40-Consistently-use-the-Override-annotation.md'><span>Item 40: Consistently use the Override annotation（坚持使用 @Override 注解）</span></a></li><li><a href='Chapter-6/Chapter-6-Item-41-Use-marker-interfaces-to-define-types.md'><span>Item 41: Use marker interfaces to define types（使用标记接口定义类型）</span></a></li></ul></li><li><p><strong><span>Chapter 7. Lambdas and Streams（λ 表达式和流）</span></strong></p><ul><li><a href='Chapter-7/Chapter-7-Introduction.md'><span>Chapter 7 Introduction（章节介绍）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-42-Prefer-lambdas-to-anonymous-classes.md'><span>Item 42: Prefer lambdas to anonymous classes（λ 表达式优于匿名类）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-43-Prefer-method-references-to-lambdas.md'><span>Item 43: Prefer method references to lambdas（方法引用优于 λ 表达式）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-44-Favor-the-use-of-standard-functional-interfaces.md'><span>Item 44: Favor the use of standard functional interfaces（优先使用标准函数式接口）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-45-Use-streams-judiciously.md'><span>Item 45: Use streams judiciously（明智地使用流）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-46-Prefer-side-effect-free-functions-in-streams.md'><span>Item 46: Prefer side effect free functions in streams（在流中使用无副作用的函数）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-47-Prefer-Collection-to-Stream-as-a-return-type.md'><span>Item 47: Prefer Collection to Stream as a return type（优先选择 Collection 而不是流作为返回类型）</span></a></li><li><a href='Chapter-7/Chapter-7-Item-48-Use-caution-when-making-streams-parallel.md'><span>Item 48: Use caution when making streams parallel（谨慎使用并行流）</span></a></li></ul></li><li><p><strong><span>Chapter 8. Methods（方法）</span></strong></p><ul><li><a href='Chapter-8/Chapter-8-Introduction.md'><span>Chapter 8 Introduction（章节介绍）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-49-Check-parameters-for-validity.md'><span>Item 49: Check parameters for validity（检查参数的有效性）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-50-Make-defensive-copies-when-needed.md'><span>Item 50: Make defensive copies when needed（在需要时制作防御性副本）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-51-Design-method-signatures-carefully.md'><span>Item 51: Design method signatures carefully（仔细设计方法签名）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-52-Use-overloading-judiciously.md'><span>Item 52: Use overloading judiciously（明智地使用重载）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-53-Use-varargs-judiciously.md'><span>Item 53: Use varargs judiciously（明智地使用可变参数）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-54-Return-empty-collections-or-arrays-not-nulls.md'><span>Item 54: Return empty collections or arrays, not nulls（返回空集合或数组，而不是 null）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-55-Return-optionals-judiciously.md'><span>Item 55: Return optionals judiciously（明智地的返回 Optional）</span></a></li><li><a href='Chapter-8/Chapter-8-Item-56-Write-doc-comments-for-all-exposed-API-elements.md'><span>Item 56: Write doc comments for all exposed API elements（为所有公开的 API 元素编写文档注释）</span></a></li></ul></li><li><p><strong><span>Chapter 9. General Programming（通用程序设计）</span></strong></p><ul><li><a href='Chapter-9/Chapter-9-Introduction.md'><span>Chapter 9 Introduction（章节介绍）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-57-Minimize-the-scope-of-local-variables.md'><span>Item 57: Minimize the scope of local variables（将局部变量的作用域最小化）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-58-Prefer-for-each-loops-to-traditional-for-loops.md'><span>Item 58: Prefer for-each loops to traditional for loops（for-each 循环优于传统的 for 循环）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-59-Know-and-use-the-libraries.md'><span>Item 59: Know and use the libraries（了解并使用库）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-60-Avoid-float-and-double-if-exact-answers-are-required.md'><span>Item 60: Avoid float and double if exact answers are required（若需要精确答案就应避免使用 float 和 double 类型）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-61-Prefer-primitive-types-to-boxed-primitives.md'><span>Item 61: Prefer primitive types to boxed primitives（基本数据类型优于包装类）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-62-Avoid-strings-where-other-types-are-more-appropriate.md'><span>Item 62: Avoid strings where other types are more appropriate（其他类型更合适时应避免使用字符串）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-63-Beware-the-performance-of-string-concatenation.md'><span>Item 63: Beware the performance of string concatenation（当心字符串连接引起的性能问题）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-64-Refer-to-objects-by-their-interfaces.md'><span>Item 64: Refer to objects by their interfaces（通过接口引用对象）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-65-Prefer-interfaces-to-reflection.md'><span>Item 65: Prefer interfaces to reflection（接口优于反射）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-66-Use-native-methods-judiciously.md'><span>Item 66: Use native methods judiciously（明智地使用本地方法）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-67-Optimize-judiciously.md'><span>Item 67: Optimize judiciously（明智地进行优化）</span></a></li><li><a href='Chapter-9/Chapter-9-Item-68-Adhere-to-generally-accepted-naming-conventions.md'><span>Item 68: Adhere to generally accepted naming conventions（遵守被广泛认可的命名约定）</span></a></li></ul></li><li><p><strong><span>Chapter 10. Exceptions（异常）</span></strong></p><ul><li><a href='Chapter-10/Chapter-10-Introduction.md'><span>Chapter 10 Introduction（章节介绍）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-69-Use-exceptions-only-for-exceptional-conditions.md'><span>Item 69: Use exceptions only for exceptional conditions（仅在确有异常条件下使用异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-70-Use-checked-exceptions-for-recoverable-conditions-and-runtime-exceptions-for-programming-errors.md'><span>Item 70: Use checked exceptions for recoverable conditions and runtime exceptions for programming errors（对可恢复情况使用 checked 异常，对编程错误使用运行时异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-71-Avoid-unnecessary-use-of-checked-exceptions.md'><span>Item 71: Avoid unnecessary use of checked exceptions（避免不必要地使用 checked 异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-72-Favor-the-use-of-standard-exceptions.md'><span>Item 72: Favor the use of standard exceptions（鼓励复用标准异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-73-Throw-exceptions-appropriate-to-the-abstraction.md'><span>Item 73: Throw exceptions appropriate to the abstraction（抛出能用抽象解释的异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-74-Document-all-exceptions-thrown-by-each-method.md'><span>Item 74: Document all exceptions thrown by each method（为每个方法记录会抛出的所有异常）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-75-Include-failure-capture-information-in-detail-messages.md'><span>Item 75: Include failure capture information in detail messages（异常详细消息中应包含捕获失败的信息）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-76-Strive-for-failure-atomicity.md'><span>Item 76: Strive for failure atomicity（尽力保证故障原子性）</span></a></li><li><a href='Chapter-10/Chapter-10-Item-77-Don’t-ignore-exceptions.md'><span>Item 77: Don’t ignore exceptions（不要忽略异常）</span></a></li></ul></li><li><p><strong><span>Chapter 11. Concurrency（并发）</span></strong></p><ul><li><a href='Chapter-11/Chapter-11-Introduction.md'><span>Chapter 11 Introduction（章节介绍）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-78-Synchronize-access-to-shared-mutable-data.md'><span>Item 78: Synchronize access to shared mutable data（对共享可变数据的同步访问）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-79-Avoid-excessive-synchronization.md'><span>Item 79: Avoid excessive synchronization（避免过度同步）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-80-Prefer-executors,-tasks,-and-streams-to-threads.md'><span>Item 80: Prefer executors, tasks, and streams to threads（Executor、task、流优于直接使用线程）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-81-Prefer-concurrency-utilities-to-wait-and-notify.md'><span>Item 81: Prefer concurrency utilities to wait and notify（并发实用工具优于 wait 和 notify）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-82-Document-thread-safety.md'><span>Item 82: Document thread safety（文档应包含线程安全属性）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-83-Use-lazy-initialization-judiciously.md'><span>Item 83: Use lazy initialization judiciously（明智地使用延迟初始化）</span></a></li><li><a href='Chapter-11/Chapter-11-Item-84-Don’t-depend-on-the-thread-scheduler.md'><span>Item 84: Don’t depend on the thread scheduler（不要依赖线程调度器）</span></a></li></ul></li><li><p><strong><span>Chapter 12. Serialization（序列化）</span></strong></p><ul><li><a href='Chapter-12/Chapter-12-Introduction.md'><span>Chapter 12 Introduction（章节介绍）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-85-Prefer-alternatives-to-Java-serialization.md'><span>Item 85: Prefer alternatives to Java serialization（Java 序列化的替代方案）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-86-Implement-Serializable-with-great-caution.md'><span>Item 86: Implement Serializable with great caution（非常谨慎地实现 Serializable）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-87-Consider-using-a-custom-serialized-form.md'><span>Item 87: Consider using a custom serialized form（考虑使用自定义序列化形式）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-88-Write-readObject-methods-defensively.md'><span>Item 88: Write readObject methods defensively（防御性地编写 readObject 方法）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-89-For-instance-control-prefer-enum-types-to-readResolve.md'><span>Item 89: For instance control, prefer enum types to readResolve（对于实例控制，枚举类型优于 readResolve）</span></a></li><li><a href='Chapter-12/Chapter-12-Item-90-Consider-serialization-proxies-instead-of-serialized-instances.md'><span>Item 90: Consider serialization proxies instead of serialized instances（考虑以序列化代理代替序列化实例）</span></a></li></ul></li></ul></div></div>
+</body>
+</html>

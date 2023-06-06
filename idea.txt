@@ -1,0 +1,35 @@
+Alt+Enter    	导入包，自动修正代码
+Ctrl+Y 		删除光标所在行
+Ctrl+D 		复制光标所在行的内容，插入光标位置下面
+Ctrl+Alt+L 	格式化代码
+Ctrl+/ 		单行注释
+Ctrl+Shift+/ 	选中代码注释，多行注释，再按取消注释
+Alt+Ins 		自动生成代码，toString，get，set等方法
+Alt+Shift+上下箭头 	移动当前代码行
+
+在最小化运行结果后，可按alt+4显示运行结果
+
+shift + f6 选中多个标识符,esc退出选中
+
+ctrl选中调用处的方法/类，再点击可进入查看被调用的方法/类，包括jdk里的源码
+ctrl选中被使用的变量，点击进入声明处
+
+ctrl+n 搜索类并进入，包括jdk源码里的类
+
+alt+鼠标左键 拖拽选中范围修改
+
+选中文件按shift+F6 可以重命名
+
+ctrl+w 快速选中单词
+
+ctrl+alt+v 自动生成变量类型和变量名
+
+ctrl+p 提示参数
+
+ctrl+r 查找替换
+
+选中区域后ctrl+alt+t 可生成try...catch..
+
+ctrl +h 查看子类/实现类
+
+Ctrl+Alt+O自动导包及去除多余不用的包

@@ -2,7 +2,7 @@ Chapter 2. Creating and Destroying Objects（创建和销毁对象）
 
 ### Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）
 
-The traditional way for a class to allow a client to obtain an instance is to provide a public constructor. There is another technique that should be a part of every programmer’s toolkit. A class can provide a public static factory method,which is simply a static method that returns an instance of the class. Here’s a simple example from Boolean (the boxed primitive class for boolean). This method translates a boolean primitive value into a Boolean object reference:
+The traditional way for a class to allow a client to obtain an instance is to provide a public constructor. There is another technique that should be a part of every programmer’s toolkit. A class can provide a public static factory method, which is simply a static method that returns an instance of the class. Here’s a simple example from Boolean (the boxed primitive class for boolean). This method translates a boolean primitive value into a Boolean object reference:
 
 客户端获得实例的传统方式是由类提供一个公共构造函数。还有一种技术应该成为每个程序员技能树的一部分。一个类可以提供公共静态工厂方法，它只是一个返回类实例的静态方法。下面是一个来自 Boolean （boolean 的包装类）的简单示例。该方法将 boolean 基本类型转换为 Boolean 对象的引用：
 
@@ -18,11 +18,11 @@ Note that a static factory method is not the same as the Factory Method pattern 
 
 A class can provide its clients with static factory methods instead of, or in addition to, public constructors. Providing a static factory method instead of a public constructor has both advantages and disadvantages.
 
-除了公共构造函数，一个类还可以通过静态工厂方法提供它的客户端。使用静态工厂方法而不是公共构造函数的方式既有优点也有缺点。
+除了公共构造函数，一个类还可以给它的客户端提供静态工厂方法。使用静态工厂方法而不是公共构造函数的方式既有优点也有缺点。
 
 **One advantage of static factory methods is that, unlike constructors, they have names.** If the parameters to a constructor do not, in and of themselves, describe the object being returned, a static factory with a well-chosen name is easier to use and the resulting client code easier to read. For example, the constructor BigInteger(int, int, Random), which returns a BigInteger that is probably prime, would have been better expressed as a static factory method named BigInteger.probablePrime. (This method was added in Java 4.)
 
-**静态工厂方法与构造函数相比的第一个优点，静态工厂方法有确切名称。** 如果构造函数的参数本身并不能描述返回的对象，那么具有确切名称的静态工厂则更容易使用，生成的客户端代码也更容易阅读。例如，返回可能为素数的 BigInteger 类的构造函数 `BigInteger(int, int, Random)` 最好表示为名为 `BigInteger.probablePrime` 的静态工厂方法。（这个方法是在 Java 4 中添加的）
+**静态工厂方法与构造函数相比的第一个优点，静态工厂方法有确切名称。** 如果构造函数的参数本身并不能描述返回的对象，那么具有确切名称的静态工厂则更容易使用，生成的客户端代码也更容易阅读。例如，返回可能为素数的 BigInteger 类的构造函数 `BigInteger(int, int, Random)` 最好表示为名为 `BigInteger.probablePrime` 的静态工厂方法。（这个方法是在 Java 4 中新增的）
 
 A class can have only a single constructor with a given signature. Programmers have been known to get around this restriction by providing two constructors whose parameter lists differ only in the order of their parameter types. This is a really bad idea. The user of such an API will never be able to remember which constructor is which and will end up calling the wrong one by mistake. People reading code that uses these constructors will not know what the code does without referring to the class documentation.
 
@@ -34,11 +34,11 @@ Because they have names, static factory methods don’t share the restriction di
 
 因为静态工厂方法有确切名称，所以它们没有前一段讨论的局限。如果一个类需要具有相同签名的多个构造函数，那么用静态工厂方法替换构造函数，并仔细选择名称以突出它们的区别。
 
-**A second advantage of static factory methods is that, unlike constructors,they are not required to create a new object each time they’re invoked.** This allows immutable classes (Item 17) to use preconstructed instances, or to cache instances as they’re constructed, and dispense them repeatedly to avoid creating unnecessary duplicate objects. The Boolean.valueOf(boolean) method illustrates this technique: it never creates an object. This technique is similar to the Flyweight pattern [Gamma95]. It can greatly improve performance if equivalent objects are requested often, especially if they are expensive to create.
+**A second advantage of static factory methods is that, unlike constructors, they are not required to create a new object each time they’re invoked.** This allows immutable classes (Item 17) to use preconstructed instances, or to cache instances as they’re constructed, and dispense them repeatedly to avoid creating unnecessary duplicate objects. The Boolean.valueOf(boolean) method illustrates this technique: it never creates an object. This technique is similar to the Flyweight pattern [Gamma95]. It can greatly improve performance if equivalent objects are requested often, especially if they are expensive to create.
 
 **静态工厂方法与构造函数相比的第二个优点，静态工厂方法不需要在每次调用时创建新对象。** 这允许不可变类（[Item-17](../Chapter-4/Chapter-4-Item-17-Minimize-mutability.md)）使用预先构造的实例，或在构造实例时缓存实例，并重复分配它们以避免创建不必要的重复对象。`Boolean.valueOf(boolean)` 方法说明了这种技术：它从不创建对象。这种技术类似于享元模式 [Gamma95]。如果经常请求相同的对象，特别是在创建对象的代价很高时，它可以极大地提高性能。
 
-The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled. There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton (Item 3) or noninstantiable (Item 4). Also,it allows an immutable value class (Item 17) to make the guarantee that no two equal instances exist: a.equals(b) if and only if a == b. This is the basis of the Flyweight pattern [Gamma95]. Enum types (Item 34) provide this guarantee.
+The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled. There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton (Item 3) or noninstantiable (Item 4). Also, it allows an immutable value class (Item 17) to make the guarantee that no two equal instances exist: a.equals(b) if and only if a == b. This is the basis of the Flyweight pattern [Gamma95]. Enum types (Item 34) provide this guarantee.
 
 静态工厂方法在重复调用中能够返回相同对象，这样的能力允许类在任何时候都能严格控制存在的实例。这样的类被称为实例受控的类。编写实例受控的类有几个原因。实例控制允许一个类来保证它是一个单例（[Item-3](../Chapter-2/Chapter-2-Item-3-Enforce-the-singleton-property-with-a-private-constructor-or-an-enum-type.md)）或不可实例化的（[Item-4](../Chapter-2/Chapter-2-Item-4-Enforce-noninstantiability-with-a-private-constructor.md)）。同时，它允许一个不可变的值类（[Item-17](../Chapter-4/Chapter-4-Item-17-Minimize-mutability.md)）保证不存在两个相同的实例：`a.equals(b)` 当且仅当 `a==b` 为 true。这是享元模式的基础 [Gamma95]。枚举类型（[Item-34](../Chapter-6/Chapter-6-Item-34-Use-enums-instead-of-int-constants.md)）提供了这种保证。
 
@@ -50,7 +50,7 @@ The ability of static factory methods to return the same object from repeated in
 
 One application of this flexibility is that an API can return objects without making their classes public. Hiding implementation classes in this fashion leads to a very compact API. This technique lends itself to interface-based frameworks (Item 20), where interfaces provide natural return types for static factory methods.
 
-这种灵活性的一个应用是 API 可以在不公开其类的情况下返回对象。以这种方式隐藏实现类会形成一个非常紧凑的 API。这种技术适用于基于接口的框架（[Item-20](../Chapter-4/Chapter-4-Item-20-Prefer-interfaces-to-abstract-classes.md)），其中接口为静态工厂方法提供了自然的返回类型。
+这种灵活性的一个应用是 API 可以在不公开其类的情况下返回对象。以这种方式隐藏实现类会形成一个非常简洁的 API。这种技术适用于基于接口的框架（[Item-20](../Chapter-4/Chapter-4-Item-20-Prefer-interfaces-to-abstract-classes.md)），因为接口为静态工厂方法提供了自然的返回类型。
 
 Prior to Java 8, interfaces couldn’t have static methods. By convention, static factory methods for an interface named Type were put in a noninstantiable companion class (Item 4) named Types. For example, the Java Collections Framework has forty-five utility implementations of its interfaces, providing unmodifiable collections, synchronized collections, and the like. Nearly all of these implementations are exported via static factory methods in one noninstantiable class (java.util.Collections). The classes of the returned objects are all nonpublic.
 
@@ -96,7 +96,7 @@ There are many variants of the service provider framework pattern. For example, 
 
 **The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed.** For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance (Item 18), and is required for immutable types (Item 17).
 
-**仅提供静态工厂方法的主要局限是，没有公共或受保护构造函数的类不能被子类化。** 例如，不可能在集合框架中子类化任何方便的实现类。这可能是一种因祸得福的做法，因为它鼓励程序员使用组合而不是继承（[Item-18](../Chapter-4/Chapter-4-Item-18-Favor-composition-over-inheritance.md)），并且对于不可变的类型（[Item-17](../Chapter-4/Chapter-4-Item-17-Minimize-mutability.md)）是必需的。
+**仅提供静态工厂方法的主要局限是，没有公共或受保护构造函数的类不能被子类化。** 例如，不可能在Collections框架中子类化任何方便的实现类。这可能是一种因祸得福的做法，因为它鼓励程序员使用组合而不是继承（[Item-18](../Chapter-4/Chapter-4-Item-18-Favor-composition-over-inheritance.md)），并且对于不可变的类型（[Item-17](../Chapter-4/Chapter-4-Item-17-Minimize-mutability.md)）是必需的。
 
 **A second shortcoming of static factory methods is that they are hard for programmers to find.** They do not stand out in API documentation in the way that constructors do, so it can be difficult to figure out how to instantiate a class that provides static factory methods instead of constructors. The Javadoc tool may someday draw attention to static factory methods. In the meantime, you can reduce this problem by drawing attention to static factories in class or interface documentation and by adhering to common naming conventions. Here are some common names for static factory methods. This list is far from exhaustive:
 
@@ -128,7 +128,7 @@ BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
 
 - instance or getInstance—Returns an instance that is described by its parameters (if any) but cannot be said to have the same value, for example:
 
-instance 或 getInstance，返回一个实例，该实例由其参数（如果有的话）描述，但不具有相同的值，例如：
+instance 或 getInstance，返回一个实例，该实例由其参数（如果有的话）描述，但不能说具有相同的值，例如：
 
 ```java
 StackWalker luke = StackWalker.getInstance(options);
@@ -144,7 +144,7 @@ Object newArray = Array.newInstance(classObject, arrayLen);
 
 - getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-getType，类似于 getInstance，但如果工厂方法位于不同的类中，则使用此方法。其类型是工厂方法返回的对象类型，例如：
+getType，类似于 getInstance，但用于当工厂方法位于不同的类中。其类型是工厂方法返回的对象类型，例如：
 
 ```java
 FileStore fs = Files.getFileStore(path);
@@ -152,7 +152,7 @@ FileStore fs = Files.getFileStore(path);
 
 - newType—Like newInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-newType，与 newInstance 类似，但是如果工厂方法在不同的类中使用。类型是工厂方法返回的对象类型，例如：
+newType，与 newInstance 类似，但用于当工厂方法在不同的类中。类型是工厂方法返回的对象类型，例如：
 
 ```java
 BufferedReader br = Files.newBufferedReader(path);

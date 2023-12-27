@@ -144,7 +144,7 @@ Object newArray = Array.newInstance(classObject, arrayLen);
 
 - getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-getType，类似于 getInstance，但用于当工厂方法位于不同的类中。其类型是工厂方法返回的对象类型，例如：
+getType，类似于 getInstance，但用于当工厂方法位于不同的类中。Type是工厂方法返回的对象类型，例如：
 
 ```java
 FileStore fs = Files.getFileStore(path);
@@ -152,7 +152,7 @@ FileStore fs = Files.getFileStore(path);
 
 - newType—Like newInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-newType，与 newInstance 类似，但用于当工厂方法在不同的类中。类型是工厂方法返回的对象类型，例如：
+newType，与 newInstance 类似，但用于当工厂方法在不同的类中。Type是工厂方法返回的对象类型，例如：
 
 ```java
 BufferedReader br = Files.newBufferedReader(path);
@@ -168,7 +168,7 @@ List<Complaint> litany = Collections.list(legacyLitany);
 
 In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits. Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
 
-总之，静态工厂方法和公共构造器都有各自的用途，理解它们相比而言的优点是值得的。通常静态工厂的方式更可取，因此应避免在没有考虑静态工厂的情况下就提供公共构造函数。
+总之，静态工厂方法和公共构造器都有各自的用途，理解它们相对而言的优点是值得的。通常静态工厂的方式更可取，因此应避免在没有考虑静态工厂的情况下就提供公共构造函数。
 
 ---
 **[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**

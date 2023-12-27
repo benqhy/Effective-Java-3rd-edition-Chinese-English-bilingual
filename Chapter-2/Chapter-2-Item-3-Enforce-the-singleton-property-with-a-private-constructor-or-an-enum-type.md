@@ -2,7 +2,7 @@
 
 ### Item 3: Enforce the singleton property with a private constructor or an enum type（使用私有构造函数或枚举类型实施单例）
 
-A singleton is simply a class that is instantiated exactly once [Gamma95].Singletons typically represent either a stateless object such as a function (Item24) or a system component that is intrinsically unique. **Making a class a singleton can make it difficult to test its clients** because it’s impossible to substitute a mock implementation for a singleton unless it implements an interface that serves as its type.
+A singleton is simply a class that is instantiated exactly once [Gamma95]. Singletons typically represent either a stateless object such as a function (Item24) or a system component that is intrinsically unique. **Making a class a singleton can make it difficult to test its clients** because it’s impossible to substitute a mock implementation for a singleton unless it implements an interface that serves as its type.
 
 单例是一个只实例化一次的类 [Gamma95]。单例通常表示无状态对象，比如函数（[Item-24](../Chapter-4/Chapter-4-Item-24-Favor-static-member-classes-over-nonstatic.md)）或系统组件，它们在本质上是唯一的。**将一个类设计为单例会使它的客户端测试时变得困难，** 除非它实现了作为其类型的接口，否则无法用一个模拟实现来代替单例。
 
@@ -102,7 +102,7 @@ public enum Elvis {
 
 This approach is similar to the public field approach, but it is more concise, provides the serialization machinery for free, and provides an iron-clad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. This approach may feel a bit unnatural, but **a single-element enum type is often the best way to implement a singleton.** Note that you can’t use this approach if your singleton must extend a superclass other than Enum(though you can declare an enum to implement interfaces).
 
-这种方法类似于 public 字段方法，但是它更简洁，默认提供了序列化机制，提供了对多个实例化的严格保证，即使面对复杂的序列化或反射攻击也是如此。这种方法可能有点不自然，但是**单元素枚举类型通常是实现单例的最佳方法。** 注意，如果你的单例必须扩展一个超类而不是 Enum（尽管你可以声明一个 Enum 来实现接口），你就不能使用这种方法。
+这种方法类似于 public 字段方法，但是它更简洁，默认提供了序列化机制，提供了对多个实例化的严格保证，即使面对复杂的序列化或反射攻击也是如此。这种方法可能有点不自然，但是**单元素枚举类型通常是实现单例的最佳方法。** 注意，如果你的单例类必须继承一个超类而不是 Enum类（尽管你可以声明一个枚举类来实现接口），你就不能使用这种方法。
 
 ---
 **[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**

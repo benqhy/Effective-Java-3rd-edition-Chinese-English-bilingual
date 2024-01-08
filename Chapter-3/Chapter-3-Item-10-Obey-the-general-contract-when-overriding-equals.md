@@ -4,11 +4,11 @@
 
 Overriding the equals method seems simple, but there are many ways to get it wrong, and consequences can be dire. The easiest way to avoid problems is not to override the equals method, in which case each instance of the class is equal only to itself. This is the right thing to do if any of the following conditions apply:
 
-覆盖 equals 方法似乎很简单，但是有很多覆盖的方式会导致出错，而且后果可能非常严重。避免问题的最简单方法是不覆盖 equals 方法，在这种情况下，类的每个实例都只等于它自己。如果符合下列任何条件，就是正确的做法：
+覆盖 equals 方法似乎很简单，但是有很多覆盖的方式会导致出错，而且后果可能非常严重。避免问题的最简单方法是不覆盖 equals 方法，在这种情况下，类的每个实例都只等于它自己。如果符合下列任何一个条件，这就是正确的做法：
 
 - **Each instance of the class is inherently unique.** This is true for classes such as Thread that represent active entities rather than values. The equals implementation provided by Object has exactly the right behavior for these classes.
 
-**类的每个实例本质上都是唯一的。** 对于像 Thread 这样表示活动实体类而不是值类来说也是如此。Object 提供的 equals 实现对于这些类具有完全正确的行为。
+**类的每个实例本质上都是唯一的。** 对于像 Thread 这样表示活动实体而不是值的类来说确是如此。Object 提供的 equals 实现对于这些类具有完全正确的行为。
 
 - **There is no need for the class to provide a “logical equality” test.** For example, java.util.regex.Pattern could have overridden equals to check whether two Pattern instances represented exactly the same regular expression, but the designers didn’t think that clients would need or want this functionality. Under these circumstances, the equals implementation inherited from Object is ideal.
 
@@ -18,7 +18,7 @@ Overriding the equals method seems simple, but there are many ways to get it wro
 
 **超类已经覆盖了 equals，超类行为适合于这个类。** 例如，大多数 Set 的实现从 AbstractSet 继承其对等实现，List 从 AbstractList 继承实现，Map 从 AbstractMap 继承实现。
 
-- **The class is private or package-private, and you are certain that its equals method will never be invoked.** If you are extremely risk-averse,you can override the equals method to ensure that it isn’t invoked accidentally:
+- **The class is private or package-private, and you are certain that its equals method will never be invoked.** If you are extremely risk-averse, you can override the equals method to ensure that it isn’t invoked accidentally:
 
 **类是私有的或包私有的，并且你确信它的 equals 方法永远不会被调用。** 如果你非常厌恶风险，你可以覆盖 equals 方法，以确保它不会意外调用：
 
@@ -71,7 +71,7 @@ public static void main(String[] args) {
 
 One kind of value class that does not require the equals method to be overridden is a class that uses instance control (Item 1) to ensure that at most one object exists with each value. Enum types (Item 34) fall into this category. For these classes, logical equality is the same as object identity, so Object’s equals method functions as a logical equals method.
 
-不需要覆盖 equals 方法的一种值类是使用实例控件（[Item-1](../Chapter-2/Chapter-2-Item-1-Consider-static-factory-methods-instead-of-constructors.md)）来确保每个值最多只存在一个对象的类。枚举类型（[Item-34](../Chapter-6/Chapter-6-Item-34-Use-enums-instead-of-int-constants.md)）属于这一类。对于这些类，逻辑相等与对象标识相同，因此对象的 equals 方法函数与逻辑 equals 方法相同。
+不需要覆盖 equals 方法的一种值类是使用实例受控（[Item-1](../Chapter-2/Chapter-2-Item-1-Consider-static-factory-methods-instead-of-constructors.md)）来确保每个值最多只存在一个对象的类。枚举类型（[Item-34](../Chapter-6/Chapter-6-Item-34-Use-enums-instead-of-int-constants.md)）属于这一类。对于这些类，逻辑相等与对象标识相同，因此Object类的 equals 方法函数与逻辑 equals 方法相同。
 
 When you override the equals method, you must adhere to its general contract. Here is the contract, from the specification for Object :
 
@@ -101,9 +101,9 @@ equals 方法实现了等价关系。它应有这些属性：
 
 对于任何非空引用值 x，`x.equals(null)` 必须返回 false。
 
-Unless you are mathematically inclined, this might look a bit scary, but do not ignore it! If you violate it, you may well find that your program behaves erratically or crashes, and it can be very difficult to pin down the source of the failure. To paraphrase John Donne, no class is an island. Instances of one class are frequently passed to another. Many classes, including all collections classes,depend on the objects passed to them obeying the equals contract.
+Unless you are mathematically inclined, this might look a bit scary, but do not ignore it! If you violate it, you may well find that your program behaves erratically or crashes, and it can be very difficult to pin down the source of the failure. To paraphrase John Donne, no class is an island. Instances of one class are frequently passed to another. Many classes, including all collections classes, depend on the objects passed to them obeying the equals contract.
 
-除非你有数学方面的倾向，否则这些起来有点可怕，但不要忽略它！如果你违反了它，你的程序很可能会出现行为异常或崩溃，并且很难确定失败的根源。用 John Donne 的话来说，没有一个类是孤立的。一个类的实例经常被传递给另一个类。许多类（包括所有集合类）依赖于传递给它们的对象遵守 equals 约定。
+除非你对数学感兴趣，否则这些看起来有点可怕，但不要忽略它！如果你违反了它，你的程序很可能会出现行为异常或崩溃，并且很难确定失败的根源。用 John Donne 的话来说，没有一个类是孤立的。一个类的实例经常被传递给另一个类。许多类（包括所有集合类）依赖于传递给它们的对象是否遵守了 equals 约定。
 
 Now that you are aware of the dangers of violating the equals contract, let’s go over the contract in detail. The good news is that, appearances notwithstanding, it really isn’t very complicated. Once you understand it, it’s not hard to adhere to it.
 
@@ -115,9 +115,9 @@ So what is an equivalence relation? Loosely speaking, it’s an operator that pa
 
 **Reflexivity** —The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.
 
-**反身性** ，第一个要求仅仅是说一个对象必须等于它自己。很难想象会无意中违反了这条规则。如果你违反了它，然后将类的一个实例添加到集合中，contains 方法很可能会说该集合不包含你刚才添加的实例。
+**自反性** ，第一个要求仅仅是说一个对象必须等于它自己。很难想象会无意中违反了这条规则。如果你违反了它，然后将类的一个实例添加到集合中，contains 方法很可能会说该集合不包含你刚才添加的实例。
 
-**Symmetry** —The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class,which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
+**Symmetry** —The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
 
 **对称性** ，第二个要求是任何两个对象必须在是否相等的问题上达成一致。与第一个要求不同，无意中违反了这个要求的情况不难想象。例如，考虑下面的类，它实现了不区分大小写的字符串。字符串的情况是保留的 toString，但忽略在 equals 的比较：
 
@@ -153,7 +153,7 @@ CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
 String s = "polish";
 ```
 
-As expected, cis.equals(s) returns true. The problem is that while the equals method in CaseInsensitiveString knows about ordinary strings, the equals method in String is oblivious to case-insensitive strings.Therefore, s.equals(cis) returns false, a clear violation of symmetry.Suppose you put a case-insensitive string into a collection:
+As expected, cis.equals(s) returns true. The problem is that while the equals method in CaseInsensitiveString knows about ordinary strings, the equals method in String is oblivious to case-insensitive strings.Therefore, s.equals(cis) returns false, a clear violation of symmetry. Suppose you put a case-insensitive string into a collection:
 
 正如预期的那样，`cis.equals(s)` 返回 true。问题是，虽然 CaseInsensitiveString 中的 equals 方法知道普通字符串，但是 String 中的 equals 方法对不区分大小写的字符串不知情。因此，`s.equals(cis)` 返回 false，这明显违反了对称性。假设你将不区分大小写的字符串放入集合中：
 

@@ -4,7 +4,7 @@
 
 **You must override hashCode in every class that overrides equals.** If you fail to do so, your class will violate the general contract for hashCode, which will prevent it from functioning properly in collections such as HashMap and HashSet. Here is the contract, adapted from the Object specification:
 
-**在覆盖了 equals 方法的类中，必须覆盖 hashCode 方法。** 如果你没有这样做，该类将违反 hashCode 方法的一般约定，这将阻止该类在 HashMap 和 HashSet 等集合中正常运行。以下是根据 Object 规范修改的约定：
+**在覆盖了 equals 方法的类中，必须覆盖 hashCode 方法。** 如果你没有这样做，该类将违反 hashCode 方法的一般约定，这将阻止该类在 HashMap 和 HashSet 等集合中正常运行。以下是根据 Object 类规范修改的约定：
 
 - When the hashCode method is invoked on an object repeatedly during an execution of an application, it must consistently return the same value, provided no information used in equals comparisons is modified. This value need not remain consistent from one execution of an application to another.
 
@@ -18,16 +18,16 @@
 
 如果根据 `equals(Object)` 方法判断出两个对象不相等，则不需要在每个对象上调用 hashCode 方法时必须产生不同的结果。但是，程序员应该知道，为不相等的对象生成不同的结果可能会提高散列表的性能。
 
-**The key provision that is violated when you fail to override hashCode is the second one: equal objects must have equal hash codes.** Two distinct instances may be logically equal according to a class’s equals method, but to Object’s hashCode method, they’re just two objects with nothing much in common. Therefore, Object’s hashCode method returns two seemingly random numbers instead of two equal numbers as required by the contract.For example, suppose you attempt to use instances of the PhoneNumber class from Item 10 as keys in a HashMap:
+**The key provision that is violated when you fail to override hashCode is the second one: equal objects must have equal hash codes.** Two distinct instances may be logically equal according to a class’s equals method, but to Object’s hashCode method, they’re just two objects with nothing much in common. Therefore, Object’s hashCode method returns two seemingly random numbers instead of two equal numbers as required by the contract. For example, suppose you attempt to use instances of the PhoneNumber class from Item 10 as keys in a HashMap:
 
-**当你无法覆盖 hashCode 方法时，将违反第二个关键条款：相等的对象必须具有相等的散列码。** 根据类的 equals 方法，两个不同的实例在逻辑上可能是相等的，但是对于对象的 hashCode 方法来说，它们只是两个没有共同之处的对象。因此，Object 的 hashCode 方法返回两个看似随机的数字，而不是约定要求的两个相等的数字。例如，假设你尝试使用[Item-10](../Chapter-3/Chapter-3-Item-10-Obey-the-general-contract-when-overriding-equals.md)中的 PhoneNumber 类实例作为 HashMap 中的键：
+**当你无法覆盖 hashCode 方法时，将违反第二个关键条款：相等的对象必须具有相等的散列码。** 根据类的 equals 方法，两个不同的实例在逻辑上可能是相等的，但是对于Object类的 hashCode 方法来说，它们只是两个没有共同之处的对象。因此，Object 的 hashCode 方法返回两个看似随机的数字，而不是约定要求的两个相等的数字。例如，假设你尝试使用[Item-10](../Chapter-3/Chapter-3-Item-10-Obey-the-general-contract-when-overriding-equals.md)中的 PhoneNumber 类实例作为 HashMap 中的键：
 
 ```java
 Map<PhoneNumber, String> m = new HashMap<>();
 m.put(new PhoneNumber(707, 867, 5309), "Jenny");
 ```
 
-At this point, you might expect m.get(new PhoneNumber(707, 867, 5309)) to return "Jenny", but instead, it returns null. Notice that two PhoneNumber instances are involved: one is used for insertion into the HashMap, and a second, equal instance is used for (attempted) retrieval. The PhoneNumber class’s failure to override hashCode causes the two equal instances to have unequal hash codes, in violation of the hashCode contract.Therefore, the get method is likely to look for the phone number in a different hash bucket from the one in which it was stored by the put method. Even if the two instances happen to hash to the same bucket, the get method will almost certainly return null, because HashMap has an optimization that caches the hash code associated with each entry and doesn’t bother checking for object equality if the hash codes don’t match.
+At this point, you might expect m.get(new PhoneNumber(707, 867, 5309)) to return "Jenny", but instead, it returns null. Notice that two PhoneNumber instances are involved: one is used for insertion into the HashMap, and a second, equal instance is used for (attempted) retrieval. The PhoneNumber class’s failure to override hashCode causes the two equal instances to have unequal hash codes, in violation of the hashCode contract. Therefore, the get method is likely to look for the phone number in a different hash bucket from the one in which it was stored by the put method. Even if the two instances happen to hash to the same bucket, the get method will almost certainly return null, because HashMap has an optimization that caches the hash code associated with each entry and doesn’t bother checking for object equality if the hash codes don’t match.
 
 此时，你可能期望 `m.get(new PhoneNumber(707, 867,5309))` 返回「Jenny」，但是它返回 null。注意，这里涉及到两个 PhoneNumber 实例：一个用于插入到 HashMap 中，另一个相等的实例（被试图）用于检索。由于 PhoneNumber 类未能覆盖 hashCode 方法，导致两个相等的实例具有不相等的散列码，这违反了 hashCode 方法约定。因此，get 方法查找电话号码的散列桶可能会与 put 方法存储电话号码的散列桶不同。即使这两个实例碰巧分配在同一个散列桶上，get 方法几乎肯定会返回 null，因为 HashMap 有一个优化，它缓存每个条目相关联的散列码，如果散列码不匹配，就不会检查对象是否相等。
 
@@ -41,41 +41,41 @@ Fixing this problem is as simple as writing a proper hashCode method for PhoneNu
 public int hashCode() { return 42; }
 ```
 
-It’s legal because it ensures that equal objects have the same hash code. It’s atrocious because it ensures that every object has the same hash code. Therefore,every object hashes to the same bucket, and hash tables degenerate to linked lists. Programs that should run in linear time instead run in quadratic time. For large hash tables, this is the difference between working and not working.
+It’s legal because it ensures that equal objects have the same hash code. It’s atrocious because it ensures that every object has the same hash code. Therefore, every object hashes to the same bucket, and hash tables degenerate to linked lists. Programs that should run in linear time instead run in quadratic time. For large hash tables, this is the difference between working and not working.
 
-它是合法的，因为它确保了相等的对象具有相同的散列码。同时它也很糟糕，因为它使每个对象都有相同的散列码。因此，每个对象都分配到同一个桶中，散列表退化为链表。这样，原本应该在线性阶 `O(n)` 运行的程序将在平方阶 `O(n^2)` 运行。对于大型散列表，这是工作和不工作的区别。
+它是合法的，因为它确保了相等的对象具有相同的散列码。同时它也很糟糕，因为它使每个对象都有相同的散列码。因此，每个对象都分配到同一个桶中，散列表退化为链表。这样，原本应该在线性时间 `O(n)` 运行的程序将在平方阶时间 `O(n^2)` 运行。对于大型散列表，这关系到能否正常工作。
 
 A good hash function tends to produce unequal hash codes for unequal instances. This is exactly what is meant by the third part of the hashCode contract. Ideally, a hash function should distribute any reasonable collection of unequal instances uniformly across all int values. Achieving this ideal can be difficult. Luckily it’s not too hard to achieve a fair approximation. Here is a simple recipe:
 
-一个好的散列算法倾向于为不相等的实例生成不相等的散列码。这正是 hashCode 方法约定第三部分的含义。理想情况下，一个散列算法应该在所有 int 值上均匀合理分布所有不相等实例集合。实现这个理想是很困难的。幸运的是，实现一个类似的并不太难。这里有一个简单的方式：
+一个好的散列算法倾向于为不相等的实例生成不相等的散列码。这正是 hashCode 方法约定第三部分的含义。理想情况下，一个散列算法应该在所有 int 值上均匀合理分布所有不相等实例集合。实现这个理想是很困难的。幸运的是，实现一个相对接近的并不太难。这里有一个简单的方式：
 
 1、Declare an int variable named result, and initialize it to the hash code c for the first significant field in your object, as computed in step 2.a. (Recall from Item 10 that a significant field is a field that affects equals comparisons.)
 
-声明一个名为 result 的 int 变量，并将其初始化为对象中第一个重要字段的散列码 c，如步骤 2.a 中计算的那样。（回想一下 [Item-10](../Chapter-3/Chapter-3-Item-10-Obey-the-general-contract-when-overriding-equals.md) 中的重要字段会对比较产生影响）
+1、声明一个名为 result 的 int 变量，并将其初始化为对象中第一个重要字段的散列码 c，如步骤 2.a 中计算的那样。（回想一下 [Item-10](../Chapter-3/Chapter-3-Item-10-Obey-the-general-contract-when-overriding-equals.md) 中的重要字段会对比较产生影响）
 
 2、For every remaining significant field f in your object, do the following:
 
-对象中剩余的重要字段 f，执行以下操作：
+2、对象中剩余的重要字段 f，执行以下操作：
 
 a. Compute an int hash code c for the field:
 
-为字段计算一个整数散列码 c：
+a.为字段计算一个整数散列码 c：
 
-i. If the field is of a primitive type, compute Type.hashCode(f),where Type is the boxed primitive class corresponding to f’s type.
+i. If the field is of a primitive type, compute Type.hashCode(f), where Type is the boxed primitive class corresponding to f’s type.
 
-如果字段是基本数据类型，计算 `Type.hashCode(f)`，其中 type 是与 f 类型对应的包装类。
+i.如果字段是基本数据类型，计算 `Type.hashCode(f)`，其中 type 是与 f 类型对应的包装类。
 
 ii. If the field is an object reference and this class’s equals method compares the field by recursively invoking equals, recursively invoke hashCode on the field. If a more complex comparison is required,compute a “canonical representation” for this field and invoke hashCode on the canonical representation. If the value of the field is null, use 0 (or some other constant, but 0 is traditional).
 
-如果字段是对象引用，并且该类的 equals 方法通过递归调用 equals 方法来比较字段，则递归调用字段上的 hashCode 方法。如果需要更复杂的比较，则为该字段计算一个「canonical representation」，并在 canonical representation 上调用 hashCode 方法。如果字段的值为空，则使用 0（或其他常数，但 0 是惯用的）。
+ii.如果字段是对象引用，并且该类的 equals 方法通过递归调用 equals 方法来比较字段，则递归调用字段上的 hashCode 方法。如果需要更复杂的比较，则为该字段计算一个「canonical representation」，并在 canonical representation 上调用 hashCode 方法。如果字段的值为空，则使用 0（或其他常数，但 0 是惯用的）。
 
 iii. If the field is an array, treat it as if each significant element were a separate field. That is, compute a hash code for each significant element by applying these rules recursively, and combine the values per step 2.b. If the array has no significant elements, use a constant, preferably not 0. If all elements are significant, use Arrays.hashCode.
 
-如果字段是一个数组，则将其每个重要元素都视为一个单独的字段。也就是说，通过递归地应用这些规则计算每个重要元素的散列码，并将每个步骤 2.b 的值组合起来。如果数组中没有重要元素，则使用常量，最好不是 0。如果所有元素都很重要，那么使用 `Arrays.hashCode`。
+iii.如果字段是一个数组，则将其每个重要元素都视为一个单独的字段。也就是说，通过递归地应用这些规则计算每个重要元素的散列码，并将每个步骤 2.b 的值组合起来。如果数组中没有重要元素，则使用常量，最好不是 0。如果所有元素都很重要，那么使用 `Arrays.hashCode`。
 
 b. Combine the hash code c computed in step 2.a into result as follows:
 
-将步骤 2.a 中计算的散列码 c 合并到 result 变量，如下所示：
+b.将步骤 2.a 中计算的散列码 c 合并到 result 变量，如下所示：
 
 ```java
 result = 31 * result + c;
@@ -83,9 +83,9 @@ result = 31 * result + c;
 
 3、Return result.
 
-返回 result 变量。
+3、返回 result 变量。
 
-When you are finished writing the hashCode method, ask yourself whether equal instances have equal hash codes. Write unit tests to verify your intuition (unless you used AutoValue to generate your equals and hashCode methods,in which case you can safely omit these tests). If equal instances have unequal hash codes, figure out why and fix the problem.
+When you are finished writing the hashCode method, ask yourself whether equal instances have equal hash codes. Write unit tests to verify your intuition (unless you used AutoValue to generate your equals and hashCode methods, in which case you can safely omit these tests). If equal instances have unequal hash codes, figure out why and fix the problem.
 
 当你完成了 hashCode 方法的编写之后，问问自己现在相同的实例是否具有相同的散列码。编写单元测试来验证你的直觉（除非你使用 AutoValue 生成你的 equals 方法和 hashCode 方法，在这种情况下你可以安全地省略这些测试）。如果相同的实例有不相等的散列码，找出原因并修复问题。
 
